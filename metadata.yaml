@@ -1,0 +1,5 @@
+﻿homepage: "https://clarity.microsoft.com/"
+documentation: "https://docs.microsoft.com/en-us/clarity/"
+versions:
+  - sha: 3b19ee7787360d8be207b87a6423d30912004537
+    changeNotes: Initial release.
