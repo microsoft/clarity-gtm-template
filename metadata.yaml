@@ -1,5 +1,5 @@
 ﻿homepage: "https://clarity.microsoft.com/"
 documentation: "https://docs.microsoft.com/en-us/clarity/"
 versions:
-  - sha: be7d1952d86cd1f269d913eda62bc0707e3752d6
+  - sha: c8177a76ac87352216629f9f39c6a4bafa0713e0
     changeNotes: Initial release.
