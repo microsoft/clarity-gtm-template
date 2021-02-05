@@ -59,12 +59,13 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 const injectScript = require('injectScript');
 const queryPermission = require('queryPermission');
 const createArgumentsQueue = require('createArgumentsQueue');
+const encodeUri = require('encodeUri');
 
 //Create clarity const
 const clarity = createArgumentsQueue('clarity', 'clarity.q');
 
 // Reconstruct customer clarity script URL
-const url = "https://www.clarity.ms/tag/"+data.projectId;
+const url = "https://www.clarity.ms/tag/"+encodeUri(data.projectId);
 
 // Handle Success
 const onCustomerSuccess = () => {
