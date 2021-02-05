@@ -14,7 +14,7 @@ ___INFO___
   "version": 1,
   "securityGroups": [],
   "displayName": "Microsof Clarity",
-  "categories": ["AFFILIATE_MARKETING", "ADVERTISING"],
+  "categories": ["ANALYTICS", "HEAT_MAP", "SESSION_RECORDING"],
   "brand": {
     "id": "Microsoft",
     "displayName": "Microsoft",
