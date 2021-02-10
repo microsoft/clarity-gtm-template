@@ -13,7 +13,7 @@ ___INFO___
   "id": "cvt_temp_public_id",
   "version": 1,
   "securityGroups": [],
-  "displayName": "Microsof Clarity",
+  "displayName": "Microsoft Clarity - Official",
   "categories": ["ANALYTICS", "HEAT_MAP", "SESSION_RECORDING"],
   "brand": {
     "id": "Microsoft",
