@@ -1,5 +1,9 @@
 ﻿homepage: "https://clarity.microsoft.com/"
 documentation: "https://docs.microsoft.com/en-us/clarity/"
 versions:
+  # Latest release
+  - sha: 2ebea37fc4f8204a5124624f3adc1fc90c5a9172
+    changeNotes: Updating template name
+  # Older versions
   - sha: c8177a76ac87352216629f9f39c6a4bafa0713e0
     changeNotes: Initial release.
