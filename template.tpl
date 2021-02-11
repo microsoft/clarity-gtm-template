@@ -65,7 +65,7 @@ const encodeUri = require('encodeUri');
 const clarity = createArgumentsQueue('clarity', 'clarity.q');
 
 // Reconstruct customer clarity script URL
-const url = "https://www.clarity.ms/tag/"+encodeUri(data.projectId);
+const url = "https://www.clarity.ms/tag/"+encodeUri(data.projectId)+"?ref=gtm";
 
 // Handle Success
 const onCustomerSuccess = () => {
