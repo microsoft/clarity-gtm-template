@@ -148,7 +148,7 @@ ___TEMPLATE_PARAMETERS___
             "valueHint": ""
           }
         ],
-        "help": "ustom tags are customizable filters that allow you to analyze recordings and heatmaps in different directions",
+        "help": "Custom tags are customizable filters that allow you to analyze recordings and heatmaps in different directions",
         "valueValidators": []
       }
     ]
