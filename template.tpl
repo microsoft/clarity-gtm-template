@@ -49,6 +49,109 @@ ___TEMPLATE_PARAMETERS___
         "errorMessage": "Incorrect project Id. You can find it in the project Url from the browser. Example: https://clarity.microsoft.com/projects/view/\"projectId\"/"
       }
     ]
+  },
+  {
+    "type": "GROUP",
+    "name": "advanced",
+    "displayName": "Custom Options",
+    "groupStyle": "ZIPPY_CLOSED",
+    "subParams": [
+      {
+        "type": "GROUP",
+        "name": "custom_id",
+        "displayName": "Custom Identifiers",
+        "groupStyle": "NO_ZIPPY",
+        "subParams": [
+          {
+            "type": "TEXT",
+            "name": "userId",
+            "displayName": "Custom Id",
+            "simpleValueType": true,
+            "help": "Custom id such as an email, can help you view the user journey across browsers and devices",
+            "valueHint": "user@domain.com"
+          },
+          {
+            "type": "TEXT",
+            "name": "sessionId",
+            "displayName": "Session Id",
+            "simpleValueType": true,
+            "help": "Custom session id to help you filter for this session later",
+            "enablingConditions": [
+              {
+                "paramName": "userId",
+                "paramValue": "",
+                "type": "PRESENT"
+              }
+            ],
+            "valueHint": "custom-session-id"
+          },
+          {
+            "type": "TEXT",
+            "name": "pageId",
+            "displayName": "Page Id",
+            "simpleValueType": true,
+            "help": "Custom page id to help you filter for this page later",
+            "enablingConditions": [
+              {
+                "paramName": "userId",
+                "paramValue": "",
+                "type": "PRESENT"
+              }
+            ],
+            "valueHint": "custom-page-id"
+          },
+          {
+            "type": "TEXT",
+            "name": "friendlyName",
+            "displayName": "Friendly Name",
+            "simpleValueType": true,
+            "help": "Friendly name for the user",
+            "enablingConditions": [
+              {
+                "paramName": "userId",
+                "paramValue": "",
+                "type": "PRESENT"
+              }
+            ],
+            "valueHint": "Mona"
+          }
+        ],
+        "help": "Custom Identifiers are informational data values about site visitors",
+        "enablingConditions": []
+      },
+      {
+        "type": "SIMPLE_TABLE",
+        "name": "custom_tag",
+        "displayName": "Custom Tag",
+        "simpleTableColumns": [
+          {
+            "defaultValue": "",
+            "displayName": "Key",
+            "name": "key",
+            "type": "TEXT",
+            "valueHint": ""
+          },
+          {
+            "defaultValue": "",
+            "displayName": "Value",
+            "name": "value",
+            "type": "TEXT",
+            "valueValidators": [
+              {
+                "type": "STRING_LENGTH",
+                "args": [
+                  1,
+                  255
+                ]
+              }
+            ],
+            "valueHint": ""
+          }
+        ],
+        "help": "ustom tags are customizable filters that allow you to analyze recordings and heatmaps in different directions",
+        "valueValidators": []
+      }
+    ]
   }
 ]
 
@@ -60,9 +163,15 @@ const injectScript = require('injectScript');
 const queryPermission = require('queryPermission');
 const createArgumentsQueue = require('createArgumentsQueue');
 const encodeUri = require('encodeUri');
+//const log = require('logToConsole');
 
-//Create clarity const
+// Create clarity const
 const clarity = createArgumentsQueue('clarity', 'clarity.q');
+
+const customTags = data.custom_tag || [];
+const friendlyName = data.friendlyName || '';
+const sessionId = data.sessionId || '';
+const pageId = data.pageId || '';
 
 // Reconstruct customer clarity script URL
 const url = "https://www.clarity.ms/tag/"+encodeUri(data.projectId)+"?ref=gtm";
@@ -81,7 +190,16 @@ const onCustomerFailure = () => {
 // If the URL input by the user matches the permissions set for the template,
 // inject the script with the onSuccess and onFailure methods as callbacks.
 if (queryPermission('inject_script', "https://www.clarity.ms")) {
+  for(var i=0; i < customTags.length; i++){
+    clarity('set', customTags[i].key, customTags[i].value);
+  }
+  
+  if(data.userId){
+    clarity("identify", data.userId, sessionId, pageId, friendlyName);
+  }
+  
   injectScript(url, onCustomerSuccess, onCustomerFailure);
+  
 } else {
   data.gtmOnFailure();
 }
