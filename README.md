@@ -25,7 +25,7 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 ## Usage
-Simply find the template in the gallery under `Microsoft Clarity`. Another option is to download`Microsof Clarity.tpl`  directly import it as a template in your GTM account.
+Simply find the template in the gallery under `Microsoft Clarity`. Another option is to download`Microsoft Clarity.tpl`  directly import it as a template in your GTM account.
 ## Trademarks
 
 This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
