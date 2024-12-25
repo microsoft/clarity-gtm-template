@@ -1,4 +1,4 @@
-﻿___TERMS_OF_SERVICE___
+___TERMS_OF_SERVICE___
 
 By creating or modifying this file you agree to Google Tag Manager's Community
 Template Gallery Developer Terms of Service available at
@@ -163,6 +163,8 @@ const injectScript = require('injectScript');
 const queryPermission = require('queryPermission');
 const createArgumentsQueue = require('createArgumentsQueue');
 const encodeUri = require('encodeUri');
+const isConsentGranted = require('isConsentGranted');
+const addConsentListener = require('addConsentListener');
 //const log = require('logToConsole');
 
 // Create clarity const
@@ -199,6 +201,21 @@ if (queryPermission('inject_script', "https://www.clarity.ms")) {
   }
   
   injectScript(url, onCustomerSuccess, onCustomerFailure);
+  
+  // Check and listen for analytics consent
+  if (isConsentGranted('analytics_storage')) {
+    clarity("consent");
+  } else {
+    let wasCalled = false;
+    addConsentListener('analytics_storage', (consentType, granted) => {
+      if (wasCalled) return;
+      wasCalled = true;
+
+      if (granted) {
+        clarity("consent");
+      }
+    });
+  }
   
 } else {
   data.gtmOnFailure();
@@ -240,110 +257,4 @@ ___WEB_PERMISSIONS___
         "publicId": "access_globals",
         "versionId": "1"
       },
-      "param": [
-        {
-          "key": "keys",
-          "value": {
-            "type": 2,
-            "listItem": [
-              {
-                "type": 3,
-                "mapKey": [
-                  {
-                    "type": 1,
-                    "string": "key"
-                  },
-                  {
-                    "type": 1,
-                    "string": "read"
-                  },
-                  {
-                    "type": 1,
-                    "string": "write"
-                  },
-                  {
-                    "type": 1,
-                    "string": "execute"
-                  }
-                ],
-                "mapValue": [
-                  {
-                    "type": 1,
-                    "string": "clarity"
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  }
-                ]
-              },
-              {
-                "type": 3,
-                "mapKey": [
-                  {
-                    "type": 1,
-                    "string": "key"
-                  },
-                  {
-                    "type": 1,
-                    "string": "read"
-                  },
-                  {
-                    "type": 1,
-                    "string": "write"
-                  },
-                  {
-                    "type": 1,
-                    "string": "execute"
-                  }
-                ],
-                "mapValue": [
-                  {
-                    "type": 1,
-                    "string": "clarity.q"
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  },
-                  {
-                    "type": 8,
-                    "boolean": true
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      ]
-    },
-    "clientAnnotations": {
-      "isEditedByUser": true
-    },
-    "isRequired": true
-  }
-]
-
-
-___TESTS___
-
-scenarios: []
-
-
-___NOTES___
-
-Created on 2/2/2021, 12:41:15 PM
-
-
+      "param": 
