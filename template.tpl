@@ -191,7 +191,9 @@ const onCustomerFailure = () => {
 // inject the script with the onSuccess and onFailure methods as callbacks.
 if (queryPermission('inject_script', "https://www.clarity.ms")) {
   for(var i=0; i < customTags.length; i++){
-    clarity('set', customTags[i].key, customTags[i].value);
+    if(customTags[i].value) {
+      clarity('set', customTags[i].key, customTags[i].value);
+    }
   }
   
   if(data.userId){
