@@ -2,9 +2,11 @@
 documentation: "https://docs.microsoft.com/en-us/clarity/"
 versions:
   # Latest release
+  - sha: d85d0a7070ff9e1626bb260dfa341653be7f3266
+    changeNotes: Check variables before setting custom tags
+  # Older versions
   - sha: 1c3c4e19a33d7da23c17389d39fbd31eaf3b8aad
     changeNotes: Adding support for custom tags and identifiers
-  # Older versions
   - sha: bdc2637b7be5926c825facc58454fe37d7534c1b
     changeNotes: Adding refferer query parameter on loading clarity script from GTM
   - sha: 2ebea37fc4f8204a5124624f3adc1fc90c5a9172
