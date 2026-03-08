@@ -163,18 +163,37 @@ const injectScript = require('injectScript');
 const queryPermission = require('queryPermission');
 const createArgumentsQueue = require('createArgumentsQueue');
 const encodeUri = require('encodeUri');
+const addEventCallback = require('addEventCallback');
+const copyFromDataLayer = require('copyFromDataLayer');
 //const log = require('logToConsole');
 
 // Create clarity const
 const clarity = createArgumentsQueue('clarity', 'clarity.q');
 
-const customTags = data.custom_tag || [];
-const friendlyName = data.friendlyName || '';
-const sessionId = data.sessionId || '';
-const pageId = data.pageId || '';
-
 // Reconstruct customer clarity script URL
 const url = "https://www.clarity.ms/tag/"+encodeUri(data.projectId)+"?ref=gtm";
+
+const runClarityIdentify = () => {
+  const customTags = data.custom_tag || [];
+  const friendlyName = data.friendlyName || '';
+  const sessionId = data.sessionId || '';
+  const pageId = data.pageId || '';
+  
+  for (var i = 0; i < customTags.length; i++) {
+    if (customTags[i].value) {
+      clarity('set', customTags[i].key, customTags[i].value);
+    }
+  }
+  if (data.userId) {
+    clarity(
+      "identify",
+      data.userId,
+      sessionId,
+      pageId,
+      friendlyName
+    );
+  }
+};
 
 // Handle Success
 const onCustomerSuccess = () => {
@@ -190,16 +209,18 @@ const onCustomerFailure = () => {
 // If the URL input by the user matches the permissions set for the template,
 // inject the script with the onSuccess and onFailure methods as callbacks.
 if (queryPermission('inject_script', "https://www.clarity.ms")) {
-  for(var i=0; i < customTags.length; i++){
-    if(customTags[i].value) {
-      clarity('set', customTags[i].key, customTags[i].value);
-    }
+   if (data.userId) {
+    runClarityIdentify();
+  } else {
+    // Otherwise wait for Window Loaded event
+    addEventCallback(function(containerId, eventData) {
+      const event = copyFromDataLayer('event');
+      if (event === 'gtm.load') {
+        runClarityIdentify();
+      }
+    });
   }
-  
-  if(data.userId){
-    clarity("identify", data.userId, sessionId, pageId, friendlyName);
-  }
-  
+ 
   injectScript(url, onCustomerSuccess, onCustomerFailure);
   
 } else {
