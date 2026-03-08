@@ -167,10 +167,10 @@ const addEventCallback = require('addEventCallback');
 const copyFromDataLayer = require('copyFromDataLayer');
 //const log = require('logToConsole');
 
-const customTags = data.custom_tag || [];
-
 // Create clarity const
 const clarity = createArgumentsQueue('clarity', 'clarity.q');
+
+const customTags = data.custom_tag || [];
 
 // Reconstruct customer clarity script URL
 const url = "https://www.clarity.ms/tag/"+encodeUri(data.projectId)+"?ref=gtm";
