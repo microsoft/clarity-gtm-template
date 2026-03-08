@@ -210,7 +210,7 @@ if (queryPermission('inject_script', "https://www.clarity.ms")) {
     }
   }
 
-   if (data.userId) {
+  if (data.userId) {
     runClarityIdentify();
   } else {
     // Otherwise wait for Window Loaded event
