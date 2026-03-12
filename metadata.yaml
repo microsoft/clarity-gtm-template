@@ -2,7 +2,7 @@
 documentation: "https://docs.microsoft.com/en-us/clarity/"
 versions:
   # Latest release
-  - sha: a47e060f021ff9d992cb3e8f2fc0043b3665c034
+  - sha: 3b03b09ff80e2fef2aa51379e21c3462e8d9ffd7
     changeNotes: Added fix for clarity identify API.
   # Older versions
   - sha: d85d0a7070ff9e1626bb260dfa341653be7f3266
