@@ -385,6 +385,37 @@ ___WEB_PERMISSIONS___
             "type": 1,
             "string": "specific"
           }
+        },
+        {
+          "key": "keyPatterns",
+          "value": {
+            "type": 2,
+            "listItem": [
+              {
+                "type": 3,
+                "mapKey": [
+                  {
+                    "type": 1,
+                    "string": "key"
+                  },
+                  {
+                    "type": 1,
+                    "string": "read"
+                  }
+                ],
+                "mapValue": [
+                  {
+                    "type": 1,
+                    "string": "event"
+                  },
+                  {
+                    "type": 8,
+                    "boolean": true
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     },
