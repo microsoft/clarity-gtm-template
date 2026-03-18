@@ -2,9 +2,11 @@
 documentation: "https://docs.microsoft.com/en-us/clarity/"
 versions:
   # Latest release
+  - sha: a4013e4a6b1ae135d6acd80cdb7dd803d849dc54
+    changeNotes: Fix `event` not accessible from data layer.
+  # Older versions
   - sha: 3b03b09ff80e2fef2aa51379e21c3462e8d9ffd7
     changeNotes: Added fix for clarity identify API.
-  # Older versions
   - sha: d85d0a7070ff9e1626bb260dfa341653be7f3266
     changeNotes: Check variables before setting custom tags
   - sha: 1c3c4e19a33d7da23c17389d39fbd31eaf3b8aad
